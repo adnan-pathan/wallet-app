@@ -4,19 +4,23 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: "100%",
-    width: "100%",
+    height: "95%",
+    width: "95%",
+    margin: "auto",
   },
 }));
 
-export default function Button(props) {
+export default function ButtonComponent(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Button onClick={props.handleClick} variant="contained" color="primary">
-        {props.title}
-      </Button>
-    </div>
+    <Button
+      className={classes.root}
+      onClick={props.handleClick}
+      variant="contained"
+      color={props.color === undefined ? "primary" : props.color}
+    >
+      {props.title}
+    </Button>
   );
 }
