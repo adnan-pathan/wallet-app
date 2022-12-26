@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
@@ -10,13 +10,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function BasicTextFields(props) {
+const BasicTextFields = forwardRef((props, ref) => {
   const classes = useStyles();
   const [value, setValue] = useState(props.value);
   const handleValueChange = (e) => {
-      setValue(e.target.value);
-      props.handleChange(e.target.value);
+    setValue(e.target.value);
+    props.handleChange(e.target.value);
   };
+  useImperativeHandle(ref, () => ({
+    clearTextField() {
+      setValue("");
+    },
+  }));
+
   return (
     <TextField
       className={classes.root}
@@ -27,4 +33,6 @@ export default function BasicTextFields(props) {
       variant="outlined"
     />
   );
-}
+});
+
+export default BasicTextFields;

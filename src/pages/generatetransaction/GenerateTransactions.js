@@ -6,7 +6,7 @@ import TextField from "../../components/textfield/TextField.js";
 import ButtonComponent from "../../components/button/Button.js";
 import ToggleButtonComponent from "../../components/togglebutton/ToggleButtonComponent";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const useStyles = makeStyles(() => ({
   maincontainer: {
@@ -19,13 +19,14 @@ const useStyles = makeStyles(() => ({
   },
   cardheadertextstyle: {
     fontSize: "20px",
-    fontWeight : "bold"
+    fontWeight: "bold",
   },
 }));
 
 export default function GenerateTransaction() {
   const [balance, setBalance] = useState(0);
   const [walletname, setWalletName] = useState(0);
+  const clearTextFieldRef = useRef();
 
   const classes = useStyles();
   let amount = 0;
@@ -52,19 +53,24 @@ export default function GenerateTransaction() {
       amount: amount,
       type: transactionType ? "CREDIT" : "DEBIT",
     })
-      .then((data) => {})
+      .then((data) => {
+        clearTextFieldRef.current.clearTextField();
+      })
       .catch((err) => {
         console.log(err);
       });
     amount = 0;
     transactionType = true;
   };
+
   const handleAmountChange = (amountinchild) => {
     amount = amountinchild;
   };
+
   const handleTypeChange = (type) => {
     transactionType = type;
   };
+
   useEffect(() => {
     getWallet()
       .then((data) => {
@@ -133,9 +139,10 @@ export default function GenerateTransaction() {
           justifyContent="center"
         >
           <TextField
-            label="Amount(Optional)"
+            label="Amount"
             handleChange={handleAmountChange}
             value={amount}
+            ref={clearTextFieldRef}
           />
         </Grid>
         <Grid

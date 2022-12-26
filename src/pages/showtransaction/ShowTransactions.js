@@ -42,7 +42,7 @@ export default function ShowTransactions() {
             tempVal.push(data["data"]["transactions"][i]["_id"]);
             tempVal.push(data["data"]["transactions"][i]["date"]);
             tempVal.push(data["data"]["transactions"][i]["type"]);
-            tempVal.push(data["data"]["transactions"][i]["amount"]);
+            tempVal.push(Math.abs(data["data"]["transactions"][i]["amount"]));
             tempData.push(tempVal);
           }
           setData(tempData);
