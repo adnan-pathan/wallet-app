@@ -23,7 +23,7 @@ export default function WalletSetup(props) {
   let walletName = "";
 
   const handleSubmit = () => {
-    if (amount <= 0 || walletName === "" || walletName === undefined) {
+    if (walletName === "" || walletName === undefined) {
       alert("Please fill out the details properly");
       return;
     }
