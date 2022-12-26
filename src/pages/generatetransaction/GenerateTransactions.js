@@ -54,6 +54,7 @@ export default function GenerateTransaction() {
       type: transactionType ? "CREDIT" : "DEBIT",
     })
       .then((data) => {
+        setBalance(data['data']['balance']);
         clearTextFieldRef.current.clearTextField();
       })
       .catch((err) => {
