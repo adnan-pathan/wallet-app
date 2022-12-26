@@ -6,6 +6,7 @@ import TextField from "../../components/textfield/TextField.js";
 import ButtonComponent from "../../components/button/Button.js";
 import ToggleButtonComponent from "../../components/togglebutton/ToggleButtonComponent";
 import { useNavigate } from "react-router-dom";
+import Divider from "@material-ui/core/Divider";
 import { useEffect, useState, useRef } from "react";
 
 const useStyles = makeStyles(() => ({
@@ -18,14 +19,22 @@ const useStyles = makeStyles(() => ({
     width: "100%",
   },
   cardheadertextstyle: {
-    fontSize: "20px",
+    fontSize: "30px",
     fontWeight: "bold",
+  },
+  cardheadertextstylesecondary: {
+    fontSize: "15px",
+  },
+  divider: {
+    color: "black",
+    width: "50%",
+    height : "2px"
   },
 }));
 
 export default function GenerateTransaction() {
-  const [balance, setBalance] = useState(0);
-  const [walletname, setWalletName] = useState(0);
+  const [balance, setBalance] = useState(0.0);
+  const [walletname, setWalletName] = useState("");
   const clearTextFieldRef = useRef();
 
   const classes = useStyles();
@@ -54,14 +63,12 @@ export default function GenerateTransaction() {
       type: transactionType ? "CREDIT" : "DEBIT",
     })
       .then((data) => {
-        setBalance(parseFloat(data['data']['balance']).toFixed(4))
+        setBalance(parseFloat(data["data"]["balance"]).toFixed(4));
         clearTextFieldRef.current.clearTextField();
       })
       .catch((err) => {
         console.log(err);
       });
-    amount = 0;
-    transactionType = true;
   };
 
   const handleAmountChange = (amountinchild) => {
@@ -96,6 +103,7 @@ export default function GenerateTransaction() {
           alignItems="center"
           justifyContent="center"
           item
+          spacing={1}
           xs={12}
           className={classes.title}
         >
@@ -104,7 +112,7 @@ export default function GenerateTransaction() {
             alignItems="center"
             justifyContent="center"
             item
-            xs={6}
+            xs={12}
             className={classes.cardheadertextstyle}
           >
             {" "}
@@ -115,8 +123,17 @@ export default function GenerateTransaction() {
             alignItems="center"
             justifyContent="center"
             item
-            xs={6}
-            className={classes.cardheadertextstyle}
+            xs={12}
+          >
+            <Divider className={classes.divider} />
+          </Grid>
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            item
+            xs={12}
+            className={classes.cardheadertextstylesecondary}
           >
             {" "}
             Balance :- {balance}{" "}
@@ -130,7 +147,7 @@ export default function GenerateTransaction() {
           xs={12}
           className={classes.title}
         >
-          <h3>Generate Transactions</h3>
+          <h3>Generate a Transactions</h3>
         </Grid>
         <Grid
           item

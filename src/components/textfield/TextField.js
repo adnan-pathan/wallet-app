@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+
 const BasicTextFields = forwardRef((props, ref) => {
   const classes = useStyles();
   const [value, setValue] = useState(props.value);
@@ -28,7 +29,7 @@ const BasicTextFields = forwardRef((props, ref) => {
       className={classes.root}
       id="outlined-basic"
       label={props.label}
-      value={value}
+      value={value ? value : ""}
       onChange={handleValueChange}
       variant="outlined"
     />
