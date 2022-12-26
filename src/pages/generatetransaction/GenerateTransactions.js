@@ -54,7 +54,7 @@ export default function GenerateTransaction() {
       type: transactionType ? "CREDIT" : "DEBIT",
     })
       .then((data) => {
-        setBalance(data['data']['balance']);
+        setBalance(parseFloat(data['data']['balance']).toFixed(4));
         clearTextFieldRef.current.clearTextField();
       })
       .catch((err) => {
@@ -76,7 +76,7 @@ export default function GenerateTransaction() {
     getWallet()
       .then((data) => {
         setWalletName(data["data"]["name"]);
-        setBalance(data["data"]["balance"]);
+        setBalance(parseFloat(data["data"]["balance"]).toFixed(4));
       })
       .catch((err) => {
         console.log(err);
